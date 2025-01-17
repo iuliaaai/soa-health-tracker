@@ -12,7 +12,6 @@ Base.metadata.create_all(bind=engine)
 # Create tables at app startup
 @app.on_event("startup")
 def create_tables():
-    print("Creating database tables...")
     Base.metadata.create_all(bind=engine)
     print("Tables created successfully!")
 
