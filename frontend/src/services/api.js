@@ -27,6 +27,23 @@ export const loginUser = async (username, password) => {
     }
 };
 
+export const registerUser = async (username, password) => {
+    try {
+        const response = await axios.post(API_URL+'/auth/register', 
+            { username, password }, 
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            }
+        );
+
+        return response.data;
+    } catch (error) {
+        throw error.response?.data?.detail || 'Registration failed';
+    }
+};
+
 
 // Add an interceptor to check token expiry before each request
 api.interceptors.request.use((config) => {
@@ -48,3 +65,36 @@ api.interceptors.request.use((config) => {
 });
 
 export default api;
+
+export const getMetrics = async () => {
+    try {
+        const token = localStorage.getItem('token');
+        const response = await axios.get(`${API_URL}/api/metrics`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        return response.data;
+    } catch (error) {
+        throw error.response?.data?.detail || 'Failed to fetch metrics';
+    }
+};
+
+export const submitMetric = async (type, value) => {
+    try {
+        const token = localStorage.getItem('token');
+        const response = await axios.post(
+            `${API_URL}/api/metrics`,
+            { type, value },
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
+            }
+        );
+        return response.data;
+    } catch (error) {
+        throw error.response?.data?.detail || 'Error submitting metric';
+    }
+};

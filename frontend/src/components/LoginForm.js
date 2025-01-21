@@ -4,6 +4,7 @@ import './LoginForm.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export function LoginForm() {
     const [username, setUsername] = useState('');
@@ -55,6 +56,8 @@ export function LoginForm() {
                 <button type="submit" className="login-button">Login</button>
                 {error && <p className="error-message">{error}</p>}
             </form>
+
+            <p>Don't have an account? <Link to="/register">Register here</Link></p>
         </div>
     );
 }
