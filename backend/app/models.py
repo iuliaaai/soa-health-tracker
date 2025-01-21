@@ -8,7 +8,7 @@ class User(Base):
     id = Column(Integer, primary_key=True, index=True)
     username = Column(String, unique=True, index=True, nullable=False)
     hashed_password = Column(String, nullable=False)
-    metrics = relationship("Metric", back_populates="user")
+    metrics = relationship("Metric", back_populates="user", cascade="all, delete-orphan")
 
 
 class Metric(Base):
@@ -16,8 +16,8 @@ class Metric(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
-    steps = Column(Integer)
-    water = Column(Float)
-    sleep = Column(Float)
+    steps = Column(Integer, nullable=False)
+    water = Column(Float, nullable=False)
+    sleep = Column(Float, nullable=False)
     date = Column(Date)
     user = relationship("User", back_populates="metrics")

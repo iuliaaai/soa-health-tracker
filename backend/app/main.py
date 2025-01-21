@@ -39,4 +39,4 @@ def read_root(db: Session = Depends(get_db)):
     return {"message": "Database connection successful!"}
 
 app.include_router(auth.router, prefix="/auth")
-app.include_router(metrics.router, prefix="/api")
+app.include_router(metrics.router, prefix="/api", tags=["Metrics"])

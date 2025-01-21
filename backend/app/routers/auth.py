@@ -8,18 +8,11 @@ from sqlalchemy.orm import Session
 import app.config
 from fastapi.security import OAuth2PasswordRequestForm
 from ..models import User
+from app.schemas import UserCreate, Token
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 router = APIRouter()
-
-class UserCreate(BaseModel):
-    username: str
-    password: str
-
-class Token(BaseModel):
-    access_token: str
-    token_type: str
 
 def get_db():
     db = SessionLocal()
