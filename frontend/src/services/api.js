@@ -80,12 +80,11 @@ export const getMetrics = async () => {
     }
 };
 
-export const submitMetric = async (type, value) => {
+export const submitMetric = async (metricData) => {
     try {
         const token = localStorage.getItem('token');
         const response = await axios.post(
-            `${API_URL}/api/metrics`,
-            { type, value },
+            `${API_URL}/api/metrics`, metricData,
             {
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -96,5 +95,19 @@ export const submitMetric = async (type, value) => {
         return response.data;
     } catch (error) {
         throw error.response?.data?.detail || 'Error submitting metric';
+    }
+};
+
+export const deleteMetric = async (metricId) => {
+    try {
+        const token = localStorage.getItem('token');
+        const response = await axios.delete(`${API_URL}/api/metrics/${metricId}`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        return response.data;
+    } catch (error) {
+        throw error.response?.data?.detail || 'Error deleting metric';
     }
 };

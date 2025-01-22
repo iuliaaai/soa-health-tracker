@@ -19,5 +19,5 @@ class Metric(Base):
     steps = Column(Integer, nullable=False)
     water = Column(Float, nullable=False)
     sleep = Column(Float, nullable=False)
-    date = Column(Date)
+    date = Column(Date, nullable=False)
     user = relationship("User", back_populates="metrics")
