@@ -2,8 +2,8 @@ from fastapi import FastAPI
 import routers
 from database import engine, Base
 from fastapi.middleware.cors import CORSMiddleware
+import uvicorn
 
-# Create database tables
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
@@ -21,5 +21,8 @@ app.add_middleware(
 app.include_router(routers.router, prefix="/auth", tags=["Authentication"])
 
 @app.get("/")
-def root():
-    return {"message": "Welcome to the Auth Service"}
+def read_root():
+    return {"message": "Hello from auth_service"}
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8000)
