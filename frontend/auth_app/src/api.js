@@ -1,8 +1,7 @@
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
 
-// const API_URL = 'http://127.0.0.1:8000/auth/login';
-const API_URL = 'http://127.0.0.1:8000';
+const API_URL = process.env.REACT_APP_API_URL;
 
 const api = axios.create({
     baseURL: API_URL,
@@ -15,7 +14,7 @@ export const loginUser = async (username, password) => {
         formData.append('username', username);
         formData.append('password', password);
 
-        const response = await axios.post(API_URL+'/auth/login', formData, {
+        const response = await axios.post(API_URL+'/login', formData, {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
             },
@@ -29,7 +28,7 @@ export const loginUser = async (username, password) => {
 
 export const registerUser = async (username, password) => {
     try {
-        const response = await axios.post(API_URL+'/auth/register', 
+        const response = await axios.post(API_URL+'/register', 
             { username, password }, 
             {
                 headers: {

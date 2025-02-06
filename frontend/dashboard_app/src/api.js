@@ -1,8 +1,7 @@
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
 
-// const API_URL = 'http://127.0.0.1:8000/auth/login';
-const API_URL = 'http://127.0.0.1:8001';
+const API_URL = process.env.REACT_APP_API_URL
 
 const api = axios.create({
     baseURL: API_URL,
@@ -33,7 +32,7 @@ export default api;
 export const getMetrics = async () => {
     try {
         const token = localStorage.getItem('token');
-        const response = await axios.get(`${API_URL}/api/metrics`, {
+        const response = await axios.get(`${API_URL}/metrics`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
@@ -48,7 +47,7 @@ export const submitMetric = async (metricData) => {
     try {
         const token = localStorage.getItem('token');
         const response = await axios.post(
-            `${API_URL}/api/metrics`, metricData,
+            `${API_URL}/metrics`, metricData,
             {
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -65,7 +64,7 @@ export const submitMetric = async (metricData) => {
 export const deleteMetric = async (metricId) => {
     try {
         const token = localStorage.getItem('token');
-        const response = await axios.delete(`${API_URL}/api/metrics/${metricId}`, {
+        const response = await axios.delete(`${API_URL}/metrics/${metricId}`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },

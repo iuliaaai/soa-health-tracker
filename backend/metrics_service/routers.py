@@ -9,7 +9,7 @@ router = APIRouter()
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="auth/login")
 
 # Add a new metric
-@router.post("/metrics", response_model=MetricResponse)
+@router.post("/api/metrics", response_model=MetricResponse)
 def create_metric(metric: MetricCreate, token: str = Depends(oauth2_scheme), db: Session = Depends(database.get_db)):
     user_id = services.decode_token(token) 
 
@@ -30,7 +30,7 @@ def create_metric(metric: MetricCreate, token: str = Depends(oauth2_scheme), db:
     return new_metric
 
 # Fetch metrics
-@router.get("/metrics")
+@router.get("/api/metrics")
 def fetch_metrics(token: str = Depends(oauth2_scheme), db: Session = Depends(database.get_db)):
     user_id = services.decode_token(token)
     metrics = db.query(Metric).filter(Metric.user_id == user_id).all()
@@ -39,7 +39,7 @@ def fetch_metrics(token: str = Depends(oauth2_scheme), db: Session = Depends(dat
     return metrics
 
 # Delete a metric by ID
-@router.delete("/metrics/{metric_id}")
+@router.delete("/api/metrics/{metric_id}")
 def delete_metric(metric_id: int, token: str = Depends(oauth2_scheme), db: Session = Depends(database.get_db)):
     user_id = services.decode_token(token)
     metric = db.query(Metric).filter(Metric.id == metric_id, Metric.user_id == user_id).first()

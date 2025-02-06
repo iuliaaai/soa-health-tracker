@@ -3,7 +3,6 @@ from routers import router
 from database import engine, Base
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.exc import OperationalError
-import uvicorn
 
 try:
     Base.metadata.create_all(bind=engine)
@@ -22,11 +21,9 @@ app.add_middleware(
 )
 
 # Include metrics router
-app.include_router(router, prefix="/api", tags=["Metrics"])
+app.include_router(router, tags=["Metrics"])
 
 @app.get("/")
 def read_root():
     return {"message": "Hello from metrics_service"}
 
-if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8001)

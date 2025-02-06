@@ -10,19 +10,6 @@ import { BrowserRouter } from 'react-router-dom';
 
 const App = () => (
   <div className="text-3xl mx-auto max-w-6xl">
-    {/* <Header /> */}
-    {/* <div className="my-10">
-      Home page Content
-    </div> */}
-    {/* <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route element={<ProtectedRoute />}>
-            <Route path="/dashboard" element={<Footer />} /> */}
-            {/* <div> Dashboard </div> */}
-        {/* </Route>
-    </Routes> */}
-    
     <Footer />
   </div>
 );

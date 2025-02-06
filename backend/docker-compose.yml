@@ -3,7 +3,7 @@ version: '3.8'
 services:
   nginx:
     image: nginx:latest
-    container_name: nginx
+    container_name: nginx_proxy
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
     ports:
@@ -18,8 +18,11 @@ services:
     restart: always
 
   auth_service_1:
-    build: ./auth_service
+    build:
+      context: ./auth_service
     container_name: auth_service_1
+    ports:
+      - "8000:8000"
     env_file:
       - .env
     depends_on:
@@ -28,8 +31,11 @@ services:
       - backend
 
   auth_service_2:
-    build: ./auth_service
+    build:
+      context: ./auth_service
     container_name: auth_service_2
+    ports:
+      - "8002:8000"
     env_file:
       - .env
     depends_on:
@@ -38,8 +44,11 @@ services:
       - backend
 
   metrics_service_1:
-    build: ./metrics_service
+    build:
+      context: ./metrics_service
     container_name: metrics_service_1
+    ports:
+      - "8001:8001"
     env_file:
       - .env
     depends_on:
@@ -48,8 +57,11 @@ services:
       - backend
 
   metrics_service_2:
-    build: ./metrics_service
+    build:
+      context: ./metrics_service
     container_name: metrics_service_2
+    ports:
+      - "8003:8001"
     env_file:
       - .env
     depends_on:
@@ -75,3 +87,4 @@ volumes:
 
 networks:
   backend:
+    driver: bridge
