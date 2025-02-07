@@ -35,7 +35,6 @@ def login(
     # Generate the JWT token
     token_data = {"sub": str(user.id)} 
     access_token = services.create_access_token(token_data)
-    # response.set_cookie(key="access_token", value=access_token, httponly=True, secure=True)
 
     return {"access_token": access_token, "token_type": "bearer"}
 

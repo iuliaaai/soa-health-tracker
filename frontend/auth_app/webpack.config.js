@@ -66,8 +66,6 @@ module.exports = (_, argv) => ({
       filename: "remoteEntry.js",
       remotes: {},
       exposes: {
-        "./Header": "./src/Header.jsx",
-        "./Footer": "./src/Footer.jsx",
         "./Login": "./src/Login.jsx",
         "./Register": "./src/Register.jsx",
         "./ProtectedRoute": "./src/ProtectedRoute.jsx"
